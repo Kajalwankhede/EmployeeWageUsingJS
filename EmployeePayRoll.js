@@ -20,14 +20,15 @@ class EmployeePayRoll{
 
         return this._name;
     }
-    set name(name) 
-    {
-        this._name=name;
+    set name(name) {
+        let nameRegex = RegExp('^[A-Z]{1}[a-z]{3,}$');
+        if(nameRegex.test(name)) this._name = name;
+        else throw 'Name is incorrect';
     }
 
     toString(){                  
         const options={year:'numeric', month:'long', day:'numeric'};
-        const empDate=this.startDate==undefined ? "undefined" :
+        const empDate=!this.startDate ? "undefined" :
                         this.startDate.toLocaleDateString("en-US", options);
         return "id = "+this.id + " : name = " + this.name+" : salary = " + this.salary+
                 " : gender = " + this.gender + " : Start Date = "+empDate;
@@ -36,7 +37,11 @@ class EmployeePayRoll{
 
 let employeePayRoll = new EmployeePayRoll(1,"Mark",3000);
 console.log(employeePayRoll.toString());
-employeePayRoll.name="John";
-console.log(employeePayRoll.toString());
+try{
+    employeePayRoll.name="John";
+    process.stdout.write(employeePayRoll.toString());
+}catch(exception){
+    console.error(exception);
+}
 let newEmployeePayRoll=new EmployeePayRoll(1,"Terrisa",30000,"Female",new Date());
 console.log(newEmployeePayRoll.toString());
