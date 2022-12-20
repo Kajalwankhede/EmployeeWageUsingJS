@@ -25,6 +25,45 @@ class EmployeePayRoll{
         if(nameRegex.test(name)) this._name = name;
         else throw 'Name is incorrect';
     }
+    
+    get id() 
+    {
+
+        return this.id;
+    }
+    set id(id) {
+        let idRegex = RegExp('^[1-9]$');
+        if(idRegex.test(id)){
+             this.id = id;
+        }
+        else throw 'Id is incorrect, No zero Positive number required';
+    }
+
+
+    get gender() 
+    {
+
+        return this.gender;
+    }
+    set gender(gender) {
+        let genderRegex = RegExp('^[M-F]{1}$');
+        if(genderRegex.test(gender)) this.gender = gender;
+        else throw 'gender is incorrect';
+    }
+
+
+    get email() 
+    {
+
+        return this.email;
+    }
+    set email(email){
+        let emailRegex=RegExp("^[a-z0-9+_.-]+@+[a-z]+.+[a-z]")                                                                       
+        if(emailRegex.test(email)){
+            this.email=email;
+        }else
+            throw "Incorrect email"; 
+    }
 
     toString(){                  
         const options={year:'numeric', month:'long', day:'numeric'};
@@ -43,5 +82,26 @@ try{
 }catch(exception){
     console.error(exception);
 }
-let newEmployeePayRoll=new EmployeePayRoll(1,"Terrisa",30000,"Female",new Date());
+
+try{
+    employeePayRoll.id=0;
+    console.log(employeePayRoll.toString())
+}catch(e){
+    console.error(e);
+} 
+
+try{
+    employeePayRoll.gender="M";
+    console.log(employeePayRoll.toString())
+}catch(e){
+    console.error(e);
+} 
+try{
+    employeePayRoll.email="100@.-com"
+    console.log(employeePayRoll.toString())
+}catch(e){
+    console.error(e);
+}
+
+let newEmployeePayRoll=new EmployeePayRoll(2,"Terrisa",30000,"F",new Date());
 console.log(newEmployeePayRoll.toString());
