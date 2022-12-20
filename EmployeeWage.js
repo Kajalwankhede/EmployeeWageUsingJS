@@ -159,3 +159,33 @@ empDailyHrsMap.forEach((value,key,map)=>{
 console.log("Full working days: "+fullWorkingDays);
 console.log("Part working days: "+partWorkingDays);
 console.log("Non working days: "+nonWorkingDays);
+
+console.log("---------------------------------------------------------------------");
+let totalEmpWages = empDailyHrsAndWageArr
+ .filter(dayHrsAndWage => dayHrsAndWage.dailyWage >0)   //dayHrsAndWage---object created
+   .reduce((totalWage,dayHrsAndWage)=>
+   totalWage=totalWage+dayHrsAndWage.dailyWage,0);
+
+let totalEmpHours = empDailyHrsAndWageArr
+  .filter(dayHrsAndWage => dayHrsAndWage.dailyHours >0)
+    .reduce((totalHours,dayHrsAndWage)=>
+   totalHours=totalHours+dayHrsAndWage.dailyHours,0);
+console.log("UC 11 A- Total hours: "+totalEmpHours+ "Total wage: "+totalEmpWages);
+
+
+process.stdout.write("UC 11 B- Logging Full Work Days:\n");
+empDailyHrsAndWageArr
+.filter(dayHrsAndWage=>dayHrsAndWage.dailyHours == 8)
+ .forEach(dayHrsAndWage=>process.stdout.write(dayHrsAndWage.toString()));
+
+let partWorkingDayStrArr = empDailyHrsAndWageArr
+.filter(dayHrsAndWage=>dayHrsAndWage.dailyHours==4)
+  .map(dayHrsAndWage=>dayHrsAndWage.toString());
+process.stdout.write("UC 11 C-  Part Working Days:\n");
+console.log(partWorkingDayStrArr);
+
+let nonWorkingDayStrArr = empDailyHrsAndWageArr
+.filter(dayHrsAndWage=>dayHrsAndWage.dailyHours==0)
+.map(dayHrsAndWage=>dayHrsAndWage.dayNum);
+process.stdout.write("UC 11 D-  Non Working Days:\n");
+console.log(nonWorkingDayStrArr);
